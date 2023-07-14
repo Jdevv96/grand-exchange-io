@@ -1,5 +1,5 @@
 # grand-exchange-io
-Grand-exchange.io will be a full-stack, mock online store experience! As part of my final capstone project, given wireframes and stakeholder requirements, I'll create a responsive and modern looking front-end, while pairing that with a robust back-end using Spring Boot.
+Grand-exchange.io will be a full-stack, mock online store experience! As part of my final capstone project, given wireframes and stakeholder requirements, I'll create a responsive and modern-looking front end, while pairing that with a robust back end using Spring Boot. The project will be guided by User stories and will allow anyone to browse the exchange products, register for an account as well as creating personalized wishlists, and even add items to their cart.
 
 ## Objective
 The objective of this project is to build a robust RESTful API, given a set of user stories, that compliments a front-end built in Vue.js, based on provided wireframes. 
