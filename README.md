@@ -15,6 +15,8 @@ Front-End Will Demonstrate:
 
 ## Project Setup
 
+![ALT](/database/m2_final_project_ERD.drawio.png)
+
 ## Back-End
 
 #### Provided Stories & Use Cases
@@ -73,3 +75,7 @@ As a user of the system, I need to be able to log in using my registered usernam
 4. DELETE `/wishlists/{wishlistId}` - delete wishlist (Bonus Use Case 4)
 5. POST `/wishlists/{wishlistId}/products/{productId}` - add product to wishlist (Bonus Use Case 5)
 6. DELETE `/wishlists/{wishlistId}/products/{productId}` - remove product from wishlist (Bonus Use Case 6)
+
+## Front-End
+
+Details to come, check back soon!...
