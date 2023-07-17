@@ -1,4 +1,4 @@
-package dev.jdevv.server;
+package dev.jdevv;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
