@@ -13,9 +13,10 @@ Back-End Will Demonstrate:
 Front-End Will Demonstrate:
 - TBD
 
-## Project Setup
+## Project Design
 
-![ALT](/database/m2_final_project_ERD.drawio.png)
+![Project Database ERD](/server/database/m2_final_project_ERD.drawio.png)
+![User Story Layout Diagram](/images/ge_story_layout.png)
 
 ## Back-End
 
