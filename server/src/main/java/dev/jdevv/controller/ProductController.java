@@ -2,9 +2,9 @@ package dev.jdevv.controller;
 
 import dev.jdevv.dao.ProductDao;
 import dev.jdevv.model.Product;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,7 +19,20 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getProducts() {
-        return productDao.getProducts();
+    public List<Product> getProducts(@RequestParam(required = false) String name, @RequestParam(required = false) String productSku) {
+        if (name == null && productSku == null) {
+            return productDao.getProducts();
+        } else {
+            return productDao.getProductsByNameAndSku(name, productSku);
+        }
+    }
+
+    @GetMapping("/{productId}")
+    public Product getProduct(@PathVariable int productId) {
+        Product product = productDao.getProduct(productId);
+        if (product == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found. Please try again.");
+        }
+        return product;
     }
 }

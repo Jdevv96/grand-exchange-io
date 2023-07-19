@@ -30,6 +30,28 @@ public class JdbcProductDao implements ProductDao {
     }
 
     @Override
+    public List<Product> getProductsByNameAndSku(String name, String productSku) {
+        List<Product> products = new ArrayList<>();
+        String sqlName = "%" + (name == null ? "" : name) + "%";
+        boolean validSku = productSku != null && productSku.trim().length() > 0;
+
+
+        String sql = "SELECT * FROM product WHERE name ILIKE ? " + (validSku ? " AND product_sku = ? " : "") + " ORDER BY product_id;";
+        SqlRowSet results;
+        if (validSku) {
+            results = jdbcTemplate.queryForRowSet(sql, sqlName, productSku);
+        } else {
+            results = jdbcTemplate.queryForRowSet(sql, sqlName);
+        }
+
+        while (results.next()) {
+            Product product = mapRowToProduct(results);
+            products.add(product);
+        }
+        return products;
+    }
+
+    @Override
     public Product getProduct(int productId) {
         Product product = new Product();
         String sql = "SELECT * FROM product WHERE product_id = ?;";
