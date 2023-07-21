@@ -32,7 +32,7 @@ public class Cart {
         this.tax = tax;
     }
 
-    private BigDecimal getSubtotal() {
+    public BigDecimal getSubtotal() {
         BigDecimal subtotal = new BigDecimal("0.00");
         for (CartItem each : items) {
             subtotal = subtotal.add((each.getProduct().getPrice().multiply(new BigDecimal(each.getQuantity()))));
@@ -40,7 +40,7 @@ public class Cart {
         return subtotal;
     }
 
-    private BigDecimal getTotal() {
+    public BigDecimal getTotal() {
         return getSubtotal().add(getTax());
     }
 }

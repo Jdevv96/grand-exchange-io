@@ -3,8 +3,10 @@ package dev.jdevv.dao;
 import dev.jdevv.model.Product;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class JdbcProductDao implements ProductDao {
     @Override
     public List<Product> getProducts() {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM product;";
+        String sql = "SELECT * FROM product ORDER BY product_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
             Product product = mapRowToProduct(results);
@@ -44,6 +46,18 @@ public class JdbcProductDao implements ProductDao {
             results = jdbcTemplate.queryForRowSet(sql, sqlName);
         }
 
+        while (results.next()) {
+            Product product = mapRowToProduct(results);
+            products.add(product);
+        }
+        return products;
+    }
+
+    @Override
+    public List<Product> getProductsInUserCart(int userId) {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM product WHERE product_id IN (SELECT product_id FROM cart_item WHERE user_id = ?) ORDER BY product_id;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         while (results.next()) {
             Product product = mapRowToProduct(results);
             products.add(product);

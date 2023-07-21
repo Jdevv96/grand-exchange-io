@@ -1,7 +1,5 @@
 package dev.jdevv.model;
 
-import java.util.Objects;
-
 public class CartItem {
 
     private int cartItemId;
