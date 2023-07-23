@@ -1,12 +1,12 @@
 package dev.jdevv.controller;
 
 import dev.jdevv.model.Cart;
+import dev.jdevv.model.CartItem;
 import dev.jdevv.service.CartService;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 
 @RestController
@@ -23,5 +23,20 @@ public class CartController {
     @GetMapping
     public Cart getCart(Principal principal) {
         return cartService.getUserCart(principal);
+    }
+
+    @PostMapping("/items")
+    public CartItem addCartItem(Principal principal, @Valid @RequestBody CartItem item) {
+        return cartService.addCartItem(principal, item);
+    }
+
+    @DeleteMapping("/items/{cartItemId}")
+    public void removeCartItem(Principal principal, @PathVariable int cartItemId) {
+        cartService.removeCartItem(principal, cartItemId);
+    }
+
+    @DeleteMapping
+    public void clearCart(Principal principal) {
+        cartService.clearCartItems(principal);
     }
 }

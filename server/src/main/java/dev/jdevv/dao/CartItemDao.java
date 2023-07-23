@@ -33,32 +33,32 @@ public interface CartItemDao {
     List<CartItem> getItemsForUser(int userId);
 
     /**
+     * Add a cartItem to the cartItem database, based on a given cartItem.
      *
-     *
-     * @param item
-     * @return
+     * @param item The given cartItem to add.
+     * @return The new cartItemId of the added item.
      */
     int addCartItem(CartItem item);
 
     /**
+     * Update the quantity for a cartItem, based on a given cartItem.
      *
-     *
-     * @param item
+     * @param item The existing cartItem and quantity to add.
      */
     void updateCartItem(CartItem item);
 
     /**
+     * Removes a cartItem from the database, regardless of quantity, based on a given cartItemId and a user.
      *
-     *
-     * @param cartItemId
-     * @param userId
+     * @param cartItemId The id of the cartItem to remove.
+     * @param userId The id of the users cart to update.
      */
     void removeCartItem(int cartItemId, int userId);
 
     /**
+     * Removes all items from a given users cart, regardless of quantity.
      *
-     *
-     * @param userId
+     * @param userId The id of the user to remove items from.
      */
     void deleteCart(int userId);
 }

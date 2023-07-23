@@ -42,6 +42,32 @@ public class CartService {
         return cart;
     }
 
+    public CartItem addCartItem(Principal principal, CartItem item) {
+        int userId = getUser(principal).getId();
+        item.setUserId(userId);
+
+        CartItem existingItem = cartItemDao.getItemByProduct(item.getProductId(), userId);
+
+        if (existingItem == null) {
+            int addedItemId = cartItemDao.addCartItem(item);
+            return cartItemDao.getItemById(addedItemId, userId);
+        } else {
+            existingItem.setQuantity(existingItem.getQuantity() + item.getQuantity());
+            cartItemDao.updateCartItem(existingItem);
+            return cartItemDao.getItemById(existingItem.getCartItemId(), userId);
+        }
+    }
+
+    public void removeCartItem(Principal principal, int cartItemId) {
+        int userId = getUser(principal).getId();
+        cartItemDao.removeCartItem(cartItemId, userId);
+    }
+
+    public void clearCartItems(Principal principal) {
+        int userId = getUser(principal).getId();
+        cartItemDao.deleteCart(userId);
+    }
+
 
 
 
