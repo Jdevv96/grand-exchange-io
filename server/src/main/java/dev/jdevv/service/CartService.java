@@ -10,8 +10,8 @@ import dev.jdevv.model.User;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -20,14 +20,17 @@ public class CartService {
     private final CartItemDao cartItemDao;
     private final ProductDao productDao;
     private final UserDao userDao;
+    private final TaxService taxService;
 
-    public CartService(CartItemDao cartItemDao, ProductDao productDao, UserDao userDao) {
+    public CartService(CartItemDao cartItemDao, ProductDao productDao, UserDao userDao, TaxService taxService) {
         this.cartItemDao = cartItemDao;
         this.productDao = productDao;
         this.userDao = userDao;
+        this.taxService = taxService;
     }
 
     public Cart getUserCart(Principal principal) {
+        User user = getUser(principal);
         int userId = getUser(principal).getId();
         List<CartItem> items = cartItemDao.getItemsForUser(userId);
         List<Product> products = productDao.getProductsInUserCart(userId);
@@ -37,8 +40,10 @@ public class CartService {
             each.setProduct(findProduct(products, each.getProductId()));
         }
 
-        cart.setTax(new BigDecimal("0.00"));
-        cart.getSubtotal();
+        BigDecimal taxRate = taxService.getTaxRate(user.getStateCode());
+        BigDecimal subTotal = cart.getSubtotal();
+        BigDecimal tax = subTotal.multiply(taxRate).setScale(2, RoundingMode.UP);
+        cart.setTax(tax);
         return cart;
     }
 

@@ -34,13 +34,14 @@ public class Cart {
 
     public BigDecimal getSubtotal() {
         BigDecimal subtotal = new BigDecimal("0.00");
+        subtotal.setScale(2);
         for (CartItem each : items) {
-            subtotal = subtotal.add((each.getProduct().getPrice().multiply(new BigDecimal(each.getQuantity()))));
+            subtotal = subtotal.add(each.getProduct().getPrice().multiply(new BigDecimal(each.getQuantity())));
         }
         return subtotal;
     }
 
     public BigDecimal getTotal() {
-        return getSubtotal().add(getTax());
+        return getSubtotal().add(tax);
     }
 }
