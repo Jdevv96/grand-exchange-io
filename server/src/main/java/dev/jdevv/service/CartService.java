@@ -44,6 +44,7 @@ public class CartService {
         BigDecimal subTotal = cart.getSubtotal();
         BigDecimal tax = subTotal.multiply(taxRate).setScale(2, RoundingMode.UP);
         cart.setTax(tax);
+
         return cart;
     }
 
@@ -72,9 +73,6 @@ public class CartService {
         int userId = getUser(principal).getId();
         cartItemDao.deleteCart(userId);
     }
-
-
-
 
     /*
         ** Helper Methods **

@@ -44,8 +44,11 @@ public class Wishlist {
         this.name = name;
     }
 
-    public WishlistItem[] getWishlistItemList() {
-        WishlistItem[] wishlistItems = new WishlistItem[wishlistItemList.size()];
-        return wishlistItemList.toArray(wishlistItems);
+    public List<WishlistItem> getWishlistItemList() {
+        return wishlistItemList;
+    }
+
+    public void setWishlistItemList(List<WishlistItem> wishlistItemList) {
+        this.wishlistItemList = wishlistItemList;
     }
 }
