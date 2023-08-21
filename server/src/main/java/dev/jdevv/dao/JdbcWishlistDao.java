@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class JdbcWishlistDao implements WishlistDao {
         String sql = "SELECT w.*, wi.wishlist_item_id, wi.product_id " +
                 "FROM wishlist w " +
                 "LEFT JOIN wishlist_item wi " +
-                "ON wi.wishlist_id = w.wishlist_id " +
+                "ON w.wishlist_id = wi.wishlist_id " +
                 "WHERE w.wishlist_id = ? " +
                 "AND w.user_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, wishlistId, userId);
@@ -32,12 +31,12 @@ public class JdbcWishlistDao implements WishlistDao {
         while (results.next()) {
             if (wishlist == null) {
                 wishlist = mapRowToWishlist(results);
-                wishlist.setWishlistItemList(new ArrayList<>());
+                wishlist.setItems(new ArrayList<>());
             }
 
             WishlistItem item = mapRowToWishlistItem(results);
             if (item != null) {
-                wishlist.getWishlistItemList().add(item);
+                wishlist.getItems().add(item);
             }
         }
         return wishlist;
@@ -57,7 +56,9 @@ public class JdbcWishlistDao implements WishlistDao {
 
     @Override
     public int addWishlistItem(WishlistItem wishlistItem) {
-        return 0;
+        String sql = "INSERT INTO wishlist_item (wishlist_id, product_id) VALUES (?, ?) RETURNING wishlist_item_id;";
+        int wishlistId = jdbcTemplate.queryForObject(sql, int.class, wishlistItem.getWishlistId(), wishlistItem.getProductId());
+        return wishlistId;
     }
 
     @Override

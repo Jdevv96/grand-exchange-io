@@ -11,6 +11,12 @@ public class WishlistItem {
     public WishlistItem() {
     }
 
+    public WishlistItem(int wishlistItemId, int wishlistId, int productId) {
+        this.wishlistItemId = wishlistItemId;
+        this.wishlistId = wishlistId;
+        this.productId = productId;
+    }
+
     public int getWishlistItemId() {
         return wishlistItemId;
     }

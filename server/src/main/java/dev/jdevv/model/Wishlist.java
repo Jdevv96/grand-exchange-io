@@ -9,15 +9,15 @@ public class Wishlist {
     private int userId;
     private String name;
 
-    private List<WishlistItem> wishlistItemList;
+    private List<WishlistItem> items;
 
     public Wishlist() {
-        this.wishlistItemList = new ArrayList<>();
     }
 
-    public Wishlist(List<WishlistItem> wishlistItemList) {
-        this();
-        this.wishlistItemList = wishlistItemList;
+    public Wishlist(int wishlistId, int userId, String name) {
+        this.wishlistId = wishlistId;
+        this.userId = userId;
+        this.name = name;
     }
 
     public int getWishlistId() {
@@ -44,11 +44,11 @@ public class Wishlist {
         this.name = name;
     }
 
-    public List<WishlistItem> getWishlistItemList() {
-        return wishlistItemList;
+    public List<WishlistItem> getItems() {
+        return items;
     }
 
-    public void setWishlistItemList(List<WishlistItem> wishlistItemList) {
-        this.wishlistItemList = wishlistItemList;
+    public void setItems(List<WishlistItem> items) {
+        this.items = items;
     }
 }

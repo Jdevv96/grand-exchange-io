@@ -84,7 +84,7 @@ public class CartService {
     }
 
     private Product findProduct(List<Product> products, int productId) {
-        for (Product product : products) {
+        for (Product product :  products) {
             if (product.getProductId() == productId) {
                 return product;
             }

@@ -31,7 +31,7 @@ public class WishlistController {
 
     @GetMapping("/{wishlistId}")
     public Wishlist getWishlist(Principal principal, @PathVariable int wishlistId) {
-        Wishlist wishlist = wishlistService.getWishlistById(principal, wishlistId);
+        Wishlist wishlist = wishlistService.getWishlist(principal, wishlistId);
         if (wishlist == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

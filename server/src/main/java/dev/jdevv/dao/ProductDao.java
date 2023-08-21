@@ -34,6 +34,14 @@ public interface ProductDao {
     List<Product> getProductsInUserCart(int userId);
 
     /**
+     * Retrieves the products and their info in a wishlist given the id.
+     *
+     * @param wishlistId The products will be based on this wishlist id.
+     * @return List of Products in wishlist.
+     */
+    List<Product> getProductsInWishlist(int wishlistId);
+
+    /**
      * Get a product from the datastore, based on the product id.
      *
      * @param productId The product id to search by.
