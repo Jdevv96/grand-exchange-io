@@ -5,6 +5,10 @@ import dev.jdevv.model.WishlistItem;
 
 import java.util.List;
 
+/**
+ * The WishlistDao interface is used to interact with the wishlist information in the data store.
+ */
+
 public interface WishlistDao {
 
     /**
@@ -55,6 +59,8 @@ public interface WishlistDao {
      * @param userId The id of the user who's wishlist will be removed.
      */
     void removeWishlist(int wishlistId, int userId);
+
+    WishlistItem getWishlistItemByProduct(int wishlistId, int productId);
 
 
 }

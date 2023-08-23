@@ -8,6 +8,14 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  The JdbcCartItemDao class is the concrete implementation of the CartItemDao interface,
+ *  that allows us to interact with the cart information.
+ *
+ *  This class is specifically used to access data from a SQL database.
+ *  This DAO class supports full CRUD functionality for cart items.
+ */
+
 @Component
 public class JdbcCartItemDao implements CartItemDao {
 

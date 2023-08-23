@@ -3,12 +3,18 @@ package dev.jdevv.dao;
 import dev.jdevv.model.Product;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ *  The JdbcProductDao class is the concrete implementation of the ProductDao interface,
+ *  that allows us to interact with the product information.
+ *
+ *  This class is specifically used to access data from a SQL database.
+ *  This DAO class supports Reading for products.
+ */
 
 @Component
 public class JdbcProductDao implements ProductDao {

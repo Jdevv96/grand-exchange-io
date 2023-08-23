@@ -14,6 +14,13 @@ import java.math.RoundingMode;
 import java.security.Principal;
 import java.util.List;
 
+/**
+ * The CartService is a class for handling the business logic around retrieving, adding and removing items from a users cart.
+ *
+ * It depends on three DAOs for retrieving and storing: CartItemDao, ProductDao, UserDao,
+ * as well as the TaxService class to handle the logic for computing the users tax rate.
+ */
+
 @Component
 public class CartService {
 

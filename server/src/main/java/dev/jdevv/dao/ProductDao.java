@@ -1,8 +1,11 @@
 package dev.jdevv.dao;
 
 import dev.jdevv.model.Product;
-
 import java.util.List;
+
+/**
+ * The ProductDao interface is used to interact with the product information in the data store.
+ */
 
 public interface ProductDao {
 

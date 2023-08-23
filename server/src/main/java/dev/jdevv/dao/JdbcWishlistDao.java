@@ -9,6 +9,14 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  The JdbcWishlistDao class is the concrete implementation of the WishlistDao interface,
+ *  that allows us to interact with the wishlist information.
+ *
+ *  This class is specifically used to access data from a SQL database.
+ *  This DAO class supports Creating, Reading and Updating for wishlist items.
+ */
+
 @Component
 public class JdbcWishlistDao implements WishlistDao {
 
@@ -57,44 +65,67 @@ public class JdbcWishlistDao implements WishlistDao {
     @Override
     public int addWishlistItem(WishlistItem wishlistItem) {
         String sql = "INSERT INTO wishlist_item (wishlist_id, product_id) VALUES (?, ?) RETURNING wishlist_item_id;";
-        int wishlistId = jdbcTemplate.queryForObject(sql, int.class, wishlistItem.getWishlistId(), wishlistItem.getProductId());
-        return wishlistId;
+        int wishlistItemId = jdbcTemplate.queryForObject(sql, int.class, wishlistItem.getWishlistId(), wishlistItem.getProductId());
+        return wishlistItemId;
     }
 
     @Override
     public void removeWishlistItem(int wishlistId, int userId, int productId) {
-
+        String sql = "DELETE FROM wishlist_item WHERE product_id = ? AND wishlist_id = ? " +
+                "AND wishlist_id IN (" +
+                "SELECT wishlist_id FROM wishlist WHERE user_id = ?" +
+                ");";
+        jdbcTemplate.update(sql, productId, wishlistId, userId);
     }
 
     @Override
     public Wishlist createWishlist(Wishlist wishlist) {
-        return null;
+        String sql = "INSERT INTO wishlist (user_id, name) VALUES (?, ?) RETURNING wishlist_id;";
+        int wishlistId = jdbcTemplate.queryForObject(sql, int.class, wishlist.getUserId(), wishlist.getName());
+
+        if (wishlist.getItems() != null) {
+            for (WishlistItem item : wishlist.getItems()) {
+                item.setWishlistId(wishlistId);
+                addWishlistItem(item);
+            }
+        }
+        return getWishlistById(wishlistId,wishlist.getUserId());
     }
 
     @Override
     public void removeWishlist(int wishlistId, int userId) {
+        String sql = "DELETE FROM wishlist_item WHERE wishlist_id = ? " +
+                "AND wishlist_id IN (" +
+                "SELECT wishlist_id FROM wishlist WHERE user_id = ?" +
+                "); " +
+                "DELETE FROM wishlist WHERE wishlist_id = ? AND user_id = ?;";
+        jdbcTemplate.update(sql, wishlistId, userId, wishlistId, userId);
+    }
 
+    @Override
+    public WishlistItem getWishlistItemByProduct(int wishlistId, int productId) {
+        String sql = "SELECT * FROM wishlist_item WHERE wishlist_id = ? AND product_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, wishlistId, productId);
+        if (results.next()) {
+            return mapRowToWishlistItem(results);
+        }
+        return null;
     }
 
 
     private Wishlist mapRowToWishlist(SqlRowSet results) {
-
         Wishlist wishlist = new Wishlist();
-
         wishlist.setWishlistId(results.getInt("wishlist_id"));
         wishlist.setUserId(results.getInt("user_id"));
         wishlist.setName(results.getString("name"));
-
         return wishlist;
     }
 
     public WishlistItem mapRowToWishlistItem (SqlRowSet results) {
         WishlistItem item = new WishlistItem();
-
         item.setWishlistItemId(results.getInt("wishlist_item_id"));
         item.setWishlistId(results.getInt("wishlist_id"));
         item.setProductId(results.getInt("product_id"));
-
         return (item.getWishlistItemId() == 0 ? null : item);
     }
 }

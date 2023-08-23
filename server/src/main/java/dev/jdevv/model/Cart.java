@@ -4,6 +4,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * POJO class representing a Cart.
+ *      - A cart consists of a list of products (cartItems).
+ *      - The tax rate, varying by the users state. (This logic is handled via the TaxService class.)
+ */
+
 public class Cart {
 
     private List<CartItem> items;
@@ -31,6 +37,13 @@ public class Cart {
     public void setTax(BigDecimal tax) {
         this.tax = tax;
     }
+
+    /**
+     *  Note: The derived methods below are used to calculate the subtotal based on the items in the users cart,
+     *  or $0.00 if the cart is empty.
+     *
+     *  Followed by calculating the total.
+     */
 
     public BigDecimal getSubtotal() {
         BigDecimal subtotal = new BigDecimal("0.00");

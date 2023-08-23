@@ -1,7 +1,11 @@
 package dev.jdevv.model;
 
-import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * POJO class representing a wishlist.
+ *      - A wishlist is associated with a list of wishlistItems.
+ */
 
 public class Wishlist {
 

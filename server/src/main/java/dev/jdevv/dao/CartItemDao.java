@@ -1,8 +1,11 @@
 package dev.jdevv.dao;
 
 import dev.jdevv.model.CartItem;
-
 import java.util.List;
+
+/**
+ * The CartItem interface is used to interact with the cart information in the data store.
+ */
 
 public interface CartItemDao {
 

@@ -9,6 +9,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 
+/**
+ * The TaxService is a class for handling the business logic around computing the logged-in users
+ * tax rate.
+ *
+ * This consumes the TEAPI, that retrieves the latest tax rates for a given state.
+ */
+
 @Component
 public class TaxService {
 

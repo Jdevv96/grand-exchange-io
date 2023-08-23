@@ -3,6 +3,10 @@ package dev.jdevv.model;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * POJO class representing a Product.
+ */
+
 public class Product {
 
     private int productId;

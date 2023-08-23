@@ -9,6 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 
+/**
+ *  The CartController is a class for handling HTTP requests related to
+ *  retrieving, adding and deleting cart items.
+ *
+ *  This class depends on an instance of CartService for interacting with DAOs handling necessary business logic.
+ */
+
 @RestController
 @RequestMapping("/cart")
 @PreAuthorize("isAuthenticated()")

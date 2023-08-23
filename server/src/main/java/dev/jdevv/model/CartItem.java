@@ -1,5 +1,10 @@
 package dev.jdevv.model;
 
+/**
+ * POJO class representing a cartItem.
+ *      - CartItems are associated to a users cart.
+ */
+
 public class CartItem {
 
     private int cartItemId;

@@ -1,5 +1,10 @@
 package dev.jdevv.model;
 
+/**
+ * POJO class representing a WishlistItem.
+ *      - WishlistItems are associated to a users wishlist.
+ */
+
 public class WishlistItem {
 
     private int wishlistItemId;
