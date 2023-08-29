@@ -13,6 +13,13 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Objects;
 
+/**
+ * TestingDatabaseConfig configures the database-related beans and settings for testing.
+ *
+ * It sets the default values for environment variables and lastly performs any cleanup by
+ * dropping the database and closing the connection.
+ */
+
 @Configuration
 public class TestingDatabaseConfig {
 
@@ -65,6 +72,5 @@ public class TestingDatabaseConfig {
             adminDataSource.getConnection().close();;
             adminDataSource.destroy();
         }
-
     }
 }

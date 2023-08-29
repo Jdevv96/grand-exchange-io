@@ -9,11 +9,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
+/**
+ * BaseDaoTests is an abstract base class, used for testing our DAOs.
+ * It specifies which test runner to use, followed by the configuration to be used.
+ *
+ * This class gives us access to the database connection via datasource, and it performs a rollback
+ * after every test to ensure the database remains in a consistent state.
+ */
+
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = TestingDatabaseConfig.class)
 public abstract class BaseDaoTests {
 
-    // connection
     @Autowired
     protected DataSource dataSource;
 

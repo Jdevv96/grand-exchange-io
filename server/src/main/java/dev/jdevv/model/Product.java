@@ -19,7 +19,8 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productSku, String name, String description, BigDecimal price, String imageName) {
+    public Product(int productId, String productSku, String name, String description, BigDecimal price, String imageName) {
+        this.productId = productId;
         this.productSku = productSku;
         this.name = name;
         this.description = description;
