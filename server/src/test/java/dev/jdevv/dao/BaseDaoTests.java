@@ -1,4 +1,4 @@
-package dev.jdevv.server;
+package dev.jdevv.dao;
 
 import org.junit.After;
 import org.junit.runner.RunWith;

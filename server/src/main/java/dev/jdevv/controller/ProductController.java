@@ -30,7 +30,7 @@ public class ProductController {
         if (name == null && productSku == null) {
             return productDao.getProducts();
         } else {
-            return productDao.getProductsByNameAndSku(name, productSku);
+            return productDao.searchProducts(name, productSku);
         }
     }
 

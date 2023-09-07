@@ -1,4 +1,4 @@
-package dev.jdevv.server;
+package dev.jdevv.dao;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,11 +23,16 @@ import java.util.Objects;
 @Configuration
 public class TestingDatabaseConfig {
 
-    private static final String DB_HOST = Objects.requireNonNullElse(System.getenv("DB_HOST"), "localhost");
-    private static final String DB_PORT = Objects.requireNonNullElse(System.getenv("DB_PORT"), "5432");
-    private static final String DB_NAME = Objects.requireNonNullElse(System.getenv("DB_NAME"), "m2_final_project_test");
-    private static final String DB_USER = Objects.requireNonNullElse(System.getenv("DB_USER"), "postgres");
-    private static final String DB_PASSWORD = Objects.requireNonNullElse(System.getenv("DB_PASSWORD"), "password");
+    private static final String DB_HOST =
+            Objects.requireNonNullElse(System.getenv("DB_HOST"), "localhost");
+    private static final String DB_PORT =
+            Objects.requireNonNullElse(System.getenv("DB_PORT"), "5432");
+    private static final String DB_NAME =
+            Objects.requireNonNullElse(System.getenv("DB_NAME"), "m2_final_project_test");
+    private static final String DB_USER =
+            Objects.requireNonNullElse(System.getenv("DB_USER"), "postgres");
+    private static final String DB_PASSWORD =
+            Objects.requireNonNullElse(System.getenv("DB_PASSWORD"), "password");
 
     private SingleConnectionDataSource adminDataSource;
     private JdbcTemplate adminJdbcTemp;
@@ -69,7 +74,7 @@ public class TestingDatabaseConfig {
     public void cleanup() throws SQLException {
         if (adminDataSource != null) {
             adminJdbcTemp.update("DROP DATABASE \"" + DB_NAME + "\";");
-            adminDataSource.getConnection().close();;
+            adminDataSource.getConnection().close();
             adminDataSource.destroy();
         }
     }

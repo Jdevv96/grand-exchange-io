@@ -1,6 +1,5 @@
-package dev.jdevv.server;
+package dev.jdevv.dao;
 
-import dev.jdevv.dao.JdbcUserDao;
 import dev.jdevv.model.User;
 import org.junit.Before;
 import org.junit.Test;

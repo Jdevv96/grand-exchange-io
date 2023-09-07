@@ -26,6 +26,18 @@ public class JdbcProductDao implements ProductDao {
     }
 
     @Override
+    public Product getProduct(int productId) {
+        Product product = new Product();
+        String sql = "SELECT * FROM product WHERE product_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, productId);
+        if (results.next()) {
+            product = mapRowToProduct(results);
+            return product;
+        }
+        return null;
+    }
+
+    @Override
     public List<Product> getProducts() {
         List<Product> products = new ArrayList<>();
         String sql = "SELECT * FROM product ORDER BY product_id;";
@@ -38,7 +50,7 @@ public class JdbcProductDao implements ProductDao {
     }
 
     @Override
-    public List<Product> getProductsByNameAndSku(String name, String productSku) {
+    public List<Product> searchProducts(String name, String productSku) {
         List<Product> products = new ArrayList<>();
         String sqlName = "%" + (name == null ? "" : name) + "%";
         boolean validSku = productSku != null && productSku.trim().length() > 0;
@@ -85,18 +97,6 @@ public class JdbcProductDao implements ProductDao {
             products.add(product);
         }
         return products;
-    }
-
-    @Override
-    public Product getProduct(int productId) {
-        Product product = new Product();
-        String sql = "SELECT * FROM product WHERE product_id = ?;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, productId);
-        if (results.next()) {
-            product = mapRowToProduct(results);
-            return product;
-        }
-        return null;
     }
 
     private Product mapRowToProduct(SqlRowSet results) {
